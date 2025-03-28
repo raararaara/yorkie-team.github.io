@@ -123,6 +123,7 @@ export default function DocsPage({
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = (params as { slug: Array<string> })?.slug?.join('/') || 'index';
   const { content, meta } = getDocsFromSlug(slug);
+  console.log('getStaticProps', content, meta);
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
