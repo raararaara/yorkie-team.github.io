@@ -123,7 +123,7 @@ export default function DocsPage({
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = (params as { slug: Array<string> })?.slug?.join('/') || 'index';
   const { content, meta } = getDocsFromSlug(slug);
-  console.log('getStaticProps', content, meta);
+  console.log('getStaticProps start');
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
@@ -189,6 +189,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ],
     },
   });
+  console.log('getStaticProps end');
 
   const navList = getDocsOrderList('/docs');
 
@@ -202,6 +203,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  console.log('getStaticPaths start');
   const paths = getSlugs()
     .filter((slug) => {
       if (process.env.NODE_ENV === 'development') return true;
@@ -216,6 +218,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         },
       };
     });
+    console.log('getStaticPaths end');
 
   return {
     paths,
