@@ -127,66 +127,66 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [remarkGfm],
-      rehypePlugins: [
-        rehypeImageMeta,
-        [
-          rehypeVariables,
-          {
-            variables: [
-              { pattern: 'YORKIE_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_VERSION },
-              { pattern: 'YORKIE_JS_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_JS_VERSION },
-              { pattern: 'YORKIE_IOS_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_IOS_VERSION },
-              { pattern: 'YORKIE_ANDROID_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_ANDROID_VERSION },
-              { pattern: 'DASHBOARD_PATH', value: process.env.NEXT_PUBLIC_DASHBOARD_PATH },
-              { pattern: 'API_ADDR', value: process.env.NEXT_PUBLIC_API_ADDR },
-              { pattern: 'API_HOST', value: process.env.NEXT_PUBLIC_API_HOST },
-              { pattern: 'API_PORT', value: process.env.NEXT_PUBLIC_API_PORT },
-            ],
-          },
-        ],
-        rehypeSlug,
-        [
-          rehypeAutolinkHeadings,
-          {
-            test: ['h3', 'h4', 'h5', 'h6'],
-            behavior: 'wrap',
-          },
-        ],
-        [
-          rehypeToc,
-          {
-            position: 'afterend',
-            headings: ['h3', 'h4', 'h5', 'h6'],
-            customizeTOC: (toc: HtmlElementNode) => {
-              const children = toc.children || [];
-              const contents = (children[0] as any)?.children?.length;
-              if (!contents) return false;
+      // rehypePlugins: [
+      //   rehypeImageMeta,
+      //   [
+      //     rehypeVariables,
+      //     {
+      //       variables: [
+      //         { pattern: 'YORKIE_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_VERSION },
+      //         { pattern: 'YORKIE_JS_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_JS_VERSION },
+      //         { pattern: 'YORKIE_IOS_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_IOS_VERSION },
+      //         { pattern: 'YORKIE_ANDROID_VERSION', value: process.env.NEXT_PUBLIC_YORKIE_ANDROID_VERSION },
+      //         { pattern: 'DASHBOARD_PATH', value: process.env.NEXT_PUBLIC_DASHBOARD_PATH },
+      //         { pattern: 'API_ADDR', value: process.env.NEXT_PUBLIC_API_ADDR },
+      //         { pattern: 'API_HOST', value: process.env.NEXT_PUBLIC_API_HOST },
+      //         { pattern: 'API_PORT', value: process.env.NEXT_PUBLIC_API_PORT },
+      //       ],
+      //     },
+      //   ],
+      //   rehypeSlug,
+      //   [
+      //     rehypeAutolinkHeadings,
+      //     {
+      //       test: ['h3', 'h4', 'h5', 'h6'],
+      //       behavior: 'wrap',
+      //     },
+      //   ],
+      //   [
+      //     rehypeToc,
+      //     {
+      //       position: 'afterend',
+      //       headings: ['h3', 'h4', 'h5', 'h6'],
+      //       customizeTOC: (toc: HtmlElementNode) => {
+      //         const children = toc.children || [];
+      //         const contents = (children[0] as any)?.children?.length;
+      //         if (!contents) return false;
 
-              toc.tagName = 'div';
-              toc.properties.className = 'pagination';
-              const wrapper = {
-                type: 'element',
-                tagName: 'div',
-                properties: { className: 'pagination_inner' },
-                children: [
-                  {
-                    type: 'element',
-                    tagName: 'strong',
-                    properties: { className: 'pagination_title' },
-                    children: [{ type: 'text', value: 'On this page' }],
-                  },
-                  ...children,
-                ],
-              };
-              toc.children = [wrapper];
-            },
-            customizeTOCItem: (tocItem: ListItemNode, heading: HtmlElementNode) => {
-              tocItem.properties['data-heading'] = heading.properties.id;
-            },
-          },
-        ],
-        rehypeWrapContents,
-      ],
+      //         toc.tagName = 'div';
+      //         toc.properties.className = 'pagination';
+      //         const wrapper = {
+      //           type: 'element',
+      //           tagName: 'div',
+      //           properties: { className: 'pagination_inner' },
+      //           children: [
+      //             {
+      //               type: 'element',
+      //               tagName: 'strong',
+      //               properties: { className: 'pagination_title' },
+      //               children: [{ type: 'text', value: 'On this page' }],
+      //             },
+      //             ...children,
+      //           ],
+      //         };
+      //         toc.children = [wrapper];
+      //       },
+      //       customizeTOCItem: (tocItem: ListItemNode, heading: HtmlElementNode) => {
+      //         tocItem.properties['data-heading'] = heading.properties.id;
+      //       },
+      //     },
+      //   ],
+      //   rehypeWrapContents,
+      // ],
     },
   });
   console.log('getStaticProps end');
